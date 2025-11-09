@@ -14,7 +14,8 @@ class Settings(BaseSettings):
     SECRET_KEY: str = "change-me-in-production"
     API_PORT: int = 8000
 
-    # Database
+    # Database (Supabase PostgreSQL)
+    # Format: postgresql://postgres.[PROJECT_REF]:[PASSWORD]@aws-0-us-east-1.pooler.supabase.com:6543/postgres
     DATABASE_URL: str = "postgresql://user:password@localhost:5432/job_automation"
 
     # Redis
@@ -25,6 +26,7 @@ class Settings(BaseSettings):
     CELERY_RESULT_BACKEND: str = "redis://localhost:6379/0"
 
     # API Keys
+    GROQ_API_KEY: Optional[str] = None  # Groq for agents
     CLAUDE_API_KEY: Optional[str] = None
     OPENAI_API_KEY: Optional[str] = None
     SCRAPINGBEE_API_KEY: Optional[str] = None
@@ -52,9 +54,13 @@ class Settings(BaseSettings):
     # Monitoring
     SENTRY_DSN: Optional[str] = None
 
+    # Frontend
+    VITE_API_BASE_URL: str = "http://localhost:8000"
+
     class Config:
-        env_file = ".env"
+        env_file = "../.env"  # .env is in project root, not backend/
         case_sensitive = True
+        extra = "ignore"  # Ignore extra fields like VITE_API_BASE_URL
 
 
 # Global settings instance
