@@ -84,3 +84,7 @@ secrets.yaml
 tmp/
 temp/
 *.tmp
+
+# Frontend overrides
+!frontend/src/lib/
+!frontend/.env
